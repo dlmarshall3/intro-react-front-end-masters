@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useBreedList from "./useBreedList";
 import Pet from "./Pet";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
@@ -8,11 +9,11 @@ const SearchParams = () => {
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
-  const breeds = [];
+  const [breeds] = useBreedList(animal);
 
-  useEffect(() => {
-    requestPets();
-  }, []);
+  // useEffect(() => {
+  //   requestPets();
+  // }, []);
 
   async function requestPets() {
     const res = await fetch(
@@ -66,7 +67,7 @@ const SearchParams = () => {
           Breed:
           <select
             id="breed"
-            value={animal}
+            value={breed}
             onChange={handleSetBreed}
             disabled={!breeds.length}
           >
